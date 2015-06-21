@@ -1,2 +1,4 @@
 # Hi_Intensity_LED_2N2222
-  Demonstrates the use of a 2N2222 NPN transistor to switch a   3W High Intensity LED on and off with a microcontroller.
+Demonstrates the use of a 2N2222 NPN transistor to switch a   3W High Intensity LED on and off with a microcontroller.
+
+See the wiki for a spice simulation of this circuit.
