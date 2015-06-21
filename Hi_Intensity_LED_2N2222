@@ -1,0 +1,79 @@
+/*
+  Demonstrates the use of a 2N2222 NPN transistor to switch a
+  3W High Intensity LED on and off with a microcontroller.
+  https://www.addicore.com/3W-White-LED-on-Heat-Sink-p/155.htm
+  
+  It has been tested on the Texas Instruments MSP-EXP430F5529 
+  and MSP-EXP430G2 LaunchPads using Energia
+  
+  Created by Frank Milburn, 29 May 2015
+  Released into the public domain.
+  
+  These LEDs are very bright and use more current than a microcontroller
+  can supply on it's own through a pin.  2N2222 NPN transistor is used
+  here as a switch.
+ 
+  Excusing the poor ASCII art, the schematic looks something like this:                                    
+                                    
+                                       Vin = 5V
+                                          ___
+    5V                                     |                      
+    ___                                    R2 = 6.8 ohms                     
+     |                                     |                       
+  _______                                 LED                    
+  |  M  |                                  |
+  |  I  |                                  C
+  |  C  |  Pin 12                         /   
+  |  R  |-------- R1 = 220 Ohms----- B -        2N2222
+  |  O  |                                \ 
+  -------                                 >E
+     |                                     |
+    GND --------------------------------- GND
+ 
+  where C = Collector
+        B = Base
+        E = Emitter
+  
+  Design Considerations:
+ 
+  Power Supply (Vin):
+  It is possible, and frequently desireable, to use a different power
+  source than the microcontroller. The LED description lists the forward
+  current as 700mA.  This could stress the power supply on the microcontroller.
+  In this example I used a separate 5V source.
+  
+  Current Limiting Resistors (R1 and R2):
+  The current through the LED should be limited to 700mA max with a resistor
+  (R2 above).  Using the circuit above I measured 140mA, although I
+  was expecting more.  Note that this resistor should be rated for the
+  the power it will disipate.  In the case of 140mA, a 600mW resistor is
+  adequate. The 2N2222 is rated at 625mW.
+   
+  Resistor R1 limits current from the microcontroller into the base of the
+  transistor.
+   
+  Pin:
+  Any digital pin can be used.  
+ 
+  Note that the blink code that follows is the same as that in the standard
+  "Hello World" blink an LED except perhaps for the pin.
+
+*/
+  
+const int LEDpin = 12;  
+  
+// the setup function runs once when you press reset or power the board
+void setup() 
+{
+  pinMode(LEDpin, OUTPUT);       // initialize high powered LED as output
+}
+
+// the loop function runs over and over
+void loop()
+{
+  // B L I N K
+  digitalWrite(LEDpin, HIGH);    // turn on high intensity LED
+  delay(1500);                   // wait for a second
+  digitalWrite(LEDpin, LOW);     // turn off high intensity LED
+  delay(500);                   // wait for a second
+}
